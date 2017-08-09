@@ -6,7 +6,18 @@ module.exports = function(app) {
   });
 
   app.post("/api/friends", function(req, res) {
-      friendsData.push(req.body);
+      friendsData.unshift(req.body); //unshift adds to the start of array
       res.json(true);
+
+      /* PSUEDO CODE
+ 	
+	  compare currentUser's answers to EACH user already in the friendsArray
+	  add up differences in answer values
+
+	  matchedFriend = the user with the LEAST difference in answer values
+
+
+
+      */
   });
 }
