@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>FriendFinder Survery</title>
+	<title>FriendFinder Survey</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/united/bootstrap.min.css">
@@ -167,6 +167,28 @@
 	</footer>
 
   </div>
+
+<!-- Best Match Modal -->
+  <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resultsModal">Best Friend Match</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2 id="matchName"></h2>
+        <img id="matchImg" src="" alt="" style="width: 350px">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 <script type="text/javascript">
@@ -178,7 +200,7 @@
     	function validateForm() {
 		  var isValid = true;
 		  $('.form-control').each(function() {
-		    if ( $(this).val() === '' )
+		    if ( $(this).val() === "")
 		        isValid = false;
 		  });
 
@@ -191,20 +213,23 @@
 		}
 
 		if (validateForm() == true) { 
-			var newFriend = {
-				name: $("#name").val().trim(),
-				photo: $("#photo").val().trim(),
-				score: [parseInt($("#q1").val()), parseInt($("#q2").val()), parseInt($("#q3").val()), parseInt($("#q4").val()), parseInt($("#q5").val()), parseInt($("#q6").val()), parseInt($("#q7").val()), parseInt($("#q8").val()), parseInt($("#q9").val()), parseInt($("#q10").val())]
-			};
-		
-		  console.log(newFriend);
+			var userData = {
+	    		name: $("#name").val(),
+	    		photo: $("#photo").val(),
+	    		scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()]
+	    	}
+	      // console.log(userData);
 
-		  $.post("/api/friends", newFriend, 
-	        function(data) {
-	          console.log("New friend added!")
-	       
-
-			  // Clear the form when submitting
+			// Grab the URL of the website
+	    	var currentURL = window.location.origin;
+	    	// post the data to the friends API. 
+	    	$.post(currentURL + "/api/friends", userData, function(data){
+	    		
+	    		$("#matchName").text(data.name);
+	    		$('#matchImg').attr("src", data.photo);
+		    
+		     	$("#resultsModal").modal('toggle');
+	    	// Clear the form when submitting
 	          document.getElementById('form1').reset();
 	       });
 
