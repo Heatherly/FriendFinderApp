@@ -3,13 +3,13 @@ var friends = [
   {
     name: "Ahmed",
     photo:
-      "http://maxpixel.freegreatpicture.com/photo-1885144",
+      "http://maxpixel.freegreatpicture.com/static/photo/1x/Smile-Person-Brickwall-Blue-Face-Young-Joy-Hair-1885144.jpg",
     scores: [1, 2, 4, 2, 2, 3, 1, 1, 5, 5]
   },
   {
     name: "John",
     photo:
-      "http://maxpixel.freegreatpicture.com/photo-1690965",
+      "http://maxpixel.freegreatpicture.com/static/photo/1x/People-Bold-Portrait-Man-Male-Smile-Elegant-1690965.jpg",
     scores: [5, 4, 3, 3, 4, 2, 1, 1, 3, 4]
   },
   {
